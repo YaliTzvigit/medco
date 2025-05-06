@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $erreur = "Rôle non valide.";
     } else {
         // Vérifier si l'email existe déjà
-        $check = $conn->prepare("SELECT id FROM users WHERE email = ?");
+        $check = $pdo->prepare("SELECT id FROM users WHERE email = ?");
         $check->execute([$email]);
         if ($check->rowCount() > 0) {
             $erreur = "Cet email est déjà utilisé.";
@@ -34,8 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $hashed_password = password_hash($mot_de_passe, PASSWORD_DEFAULT);
 
             // Insertion dans la base
-            $sql = "INSERT INTO users (nom, email, mot_de_passe, code_pin, role) VALUES (?, ?, ?, ?, ?)";
-            $stmt = $conn->prepare($sql);
+            $sql = "INSERT INTO users (nom, email, mot_de_passe, pin_code, role) VALUES (?, ?, ?, ?, ?)";
+            $stmt = $pdo->prepare($sql);
             $success = $stmt->execute([$nom, $email, $hashed_password, $code_pin, $role]);
 
             if ($success) {

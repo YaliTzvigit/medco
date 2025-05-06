@@ -30,8 +30,11 @@ $patients = $stmt->fetchAll(PDO::FETCH_ASSOC);
           <th>#ID</th>
           <th>Nom</th>
           <th>Prénom</th>
-          <th>Sexe</th>
           <th>Date de naissance</th>
+          <th>Sexe</th>
+          <th>Contact</th>
+          <th>Adresse</th>
+          <th>Groupe Sanguin</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -41,11 +44,20 @@ $patients = $stmt->fetchAll(PDO::FETCH_ASSOC);
           <td><?= $p['id'] ?></td>
           <td><?= htmlspecialchars($p['nom']) ?></td>
           <td><?= htmlspecialchars($p['prenom']) ?></td>
-          <td><?= htmlspecialchars($p['sexe']) ?></td>
           <td><?= htmlspecialchars($p['date_naissance']) ?></td>
+          <td><?= htmlspecialchars($p['sexe']) ?></td>
+          <td><?= htmlspecialchars($p['telephone']) ?></td>
+          <td><?= htmlspecialchars($p['adresse']) ?></td>
+          <td><?= htmlspecialchars($p['groupe_sanguin']) ?></td>
           <td>
-            <a href="dossier_patient.php?id=<?= $p['id'] ?>" class="btn btn-sm btn-outline-primary">👁️ Dossier</a>
-            <a href="ajouter_consultation.php?patient_id=<?= $p['id'] ?>" class="btn btn-sm btn-outline-success">➕ Consulter</a>
+            <a href="dossierPatient.php?id=<?= $p['id'] ?>" class="btn btn-sm btn-outline-primary">
+              <i class="fa-regular fa-eye"></i>
+              Dossier
+            </a>
+            <a href="ajouter_consultation.php?patient_id=<?= $p['id'] ?>" class="btn btn-sm btn-outline-success">
+              <i class="fa-solid fa-address-book"></i>
+              Consulter
+            </a>
           </td>
         </tr>
         <?php endforeach; ?>
@@ -54,7 +66,10 @@ $patients = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
       </tbody>
     </table>
-    <a href="dashboard_medecin.php" class="btn btn-secondary">⬅️ Retour</a>
+    <a href="dashboard_medecin.php" class="btn btn-secondary">
+      <i class="fa-solid fa-backward"></i>
+      Retour
+    </a>
   </div>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header('Location: ../login_admin.php');
+    header('Location: /medco/admin/auth.php');
     exit;
 }
 ?>
@@ -15,13 +15,14 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
   <title>Tableau de Bord Admin</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../index.css" />
   <style>
     body {
       min-height: 100vh;
       display: flex;
     }
     .sidebar {
-      width: 250px;
+      width: 300px;
       background-color: #0d6efd;
       color: white;
       min-height: 100vh;
@@ -29,6 +30,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     .sidebar a {
       color: white;
       text-decoration: none;
+      font-size: 1.1rem;
     }
     .sidebar a:hover {
       background-color: rgba(255,255,255,0.1);
@@ -42,12 +44,21 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
       background-color: #ffffff;
       border-bottom: 1px solid #dee2e6;
     }
+
+    .addterms {
+        width: 120px;
+    }
+
+    .sidebar {
+      background: rgb(196, 156, 10);
+    }
+
   </style>
 </head>
 <body>
 
   <!-- Sidebar -->
-  <div class="sidebar d-flex flex-column p-3">
+  <div class="sidebar sidebar d-flex flex-column p-4">
     <h4 class="text-center">Gestion CSC</h4>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
@@ -62,9 +73,8 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
   <!-- Contenu principal -->
   <div class="content">
     <div class="topbar d-flex justify-content-between align-items-center">
-      <h4 class="mb-0">Bienvenue, Admin</h4>
-    </div>
-
+      <h4 style="padding: 8px;" class="mb-0">Bienvenue sur votre espace administrateur.</h4>   
+   </div>
     <div class="p-4">
       <div class="row g-4">
         <div class="col-md-4">
@@ -72,7 +82,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
             <div class="card-body">
               <h5 class="card-title"><i class="bi bi-person-fill-add me-2"></i>Créer un compte</h5>
               <p class="card-text">Ajouter un nouveau membre du personnel médical ou administratif.</p>
-              <a href="#" class="btn btn-primary">Ajouter</a>
+              <a href="ajouter_personnel.php" class="addterms btn btn-primary">Ajouter</a>
             </div>
           </div>
         </div>
@@ -82,7 +92,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
             <div class="card-body">
               <h5 class="card-title"><i class="bi bi-clipboard-data me-2"></i>Voir les statistiques</h5>
               <p class="card-text">Consulter les indicateurs de suivi des patients et consultations.</p>
-              <a href="#" class="btn btn-primary">Voir</a>
+              <a href="#" class="addterms btn btn-primary">Voir</a>
             </div>
           </div>
         </div>
@@ -92,7 +102,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
             <div class="card-body">
               <h5 class="card-title"><i class="bi bi-people me-2"></i>Gestion du personnel</h5>
               <p class="card-text">Voir ou modifier les comptes des utilisateurs existants.</p>
-              <a href="#" class="btn btn-primary">Gérer</a>
+              <a href="#" class="addterms btn btn-primary">Gérer</a>
             </div>
           </div>
         </div>

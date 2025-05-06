@@ -5,7 +5,7 @@ require_once(__DIR__ . '/config/db.php');
 
 $nom = "Administrateur";
 $email = "admin@csc.local";
-$mot_de_passe = "admin123"; // Choisis un mot de passe fort
+$mot_de_passe = "admin123"; 
 $role = "admin";
 
 // Hachage du mot de passe

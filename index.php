@@ -14,6 +14,7 @@ session_start();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> <!-- Pour les icônes -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="index.css" />
   <style>
 
  /* go to up */
@@ -32,6 +33,7 @@ session_start();
             padding: 10px 15px;
             border-radius: 5px;
             font-size: 16px;
+            text-align: center;
         }
 
         #goTopBtn:hover {
@@ -117,13 +119,6 @@ session_start();
 .nav-link {
     text-transform : uppercase;
 }
-
-    .footer {
-      background-color: #f8f9fa;
-      padding: 20px;
-      text-align: center;
-      margin-top: 30px;
-    }
   </style>
 </head>
 <body>
@@ -131,30 +126,32 @@ session_start();
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="#">CSC Management</a>
+      <a class="navbar-brand" style="font-size: 1.6rem; font-weight: 700;letter-spacing: 1px" href="#">CSC </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#presentation"><i class="fa-solid fa-info"></i>&nbsp;AIDE</a>
+        <li class="nav-item">
+            <a class="nav-link active" href="#presentation">Présentation</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#presentation">Présentation</a>
+            <a class="nav-link" href="#presentation"> AIDE</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#features">Fonctionnalités</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="login_admin.php"> <i class="fas fa-gears"></i> &nbsp; ADMINSYS</a>
-          </li>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="login.php"> S'authentifier </a>
+            <a class="nav-link" href="/medco/admin/auth.php"><i class="fas fa-gears"></i> ADMINSYS</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#contact">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"> &bull; </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.php"> S'authentifier </a>
           </li>
         </ul>
       </div>
@@ -171,29 +168,33 @@ session_start();
       <p class="lead" style="color: whitesmoke;">Consultez, modifiez et organisez les informations des patients de manière centralisée et sécurisée.</p>
     </div>
     <div class="carousel-item" style="background-color:rgb(29, 58, 99);"> <h2 class="display-5">Gestion efficace du personnel médical</h2>
-      <p class="lead" style="color: whitesmoke;">Administrateurs, médecins, infirmiers et agents d’accueil disposent chacun d’un espace dédié.</p>
+      <p class="lead" style="color: whitesmoke;">Administrateurs, médecins, infirmiers et agents d'accueil disposent chacun d'un espace dédié.</p>
     </div>
   </div>
 
-  <button class="carousel-control-prev" type="button" data-bs-target="#textCarousel" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#textCarousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
+  <div class="carousel-buttons" style="color: #000; position: absolute; bottom: 20px; right: 20px; display: flex; gap: 10px;">
+    <button class="carousel-control-prev" type="button" data-bs-target="#textCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#textCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
 </div>
 
   <!-- Présentation -->
   <section id="presentation" class="container py-5">
-    <h2 class="text-center mb-4">Présentation du Logiciel</h2>
-    <p class="lead text-center">
+    <h2 class="text-center mb-4"><strong>Le Logiciel </strong></h2>
+    <br>
+    <p class="lead text-center text-muted">
       Notre logiciel de gestion des CSC vous permet de gérer et suivre les patients de manière simple et efficace.
       Il offre une interface intuitive pour le personnel médical et administratif, facilitant la gestion des dossiers patients, des consultations, et bien plus encore.
     </p>
   </section>
 
   <!-- Fonctionnalités -->
-<h2 id="features" class="titre" style="text-align: center;">Fonctionnalités </h2>
+<h2 id="features" class="titre" style="text-align: center;"><strong>Fonctionnalités </strong> </h2>
+<p class="text-center text-muted">Ce que vous pouvez faire avec ce logiciel web.</p>
 <section class="container my-5 features" id="">
     <div class="row text-center">
         <div class="col-md-4 mb-4">
@@ -260,10 +261,11 @@ session_start();
 
   <!-- Contact -->
   <section id="contact" class="container py-5">
-    <h2 class="text-center mb-4">Contact</h2>
+    <h2 class="text-center mb-4">Contactez-nous</h2>
     <div class="row justify-content-center">
       <div class="col-md-6">
-        <p class="text-center">Pour toute question ou demande d'information, contactez-nous via le formulaire ci-dessous.</p>
+        <p class="text-center">Pour toute (s) question (s) ou demande d'information.</p>
+        <br>
         <form>
           <div class="mb-3">
             <label for="name" class="form-label">Nom</label>
@@ -275,9 +277,9 @@ session_start();
           </div>
           <div class="mb-3">
             <label for="message" class="form-label">Message</label>
-            <textarea class="form-control" id="message" rows="4" required></textarea>
+            <textarea class="form-control" id="message" placeholder="Bonjour logimed, votre message ..." rows="4" required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary">Envoyer</button>
+          <button type="submit" id="sendiq" class="btn btn-primary">Envoyer</button>
         </form>
       </div>
     </div>
@@ -286,7 +288,7 @@ session_start();
   <!-- Footer -->
   <footer class="footer">
     <p>&copy; 2025 CSC Management - Tous droits réservés</p>
-    <p>Contactez-nous : <a href="mailto:contact@cscmanagement.com">contact@cscmanagement.com</a></p>
+    <p>Contactez-nous : <a href="mailto:contact@cscmanagement.com" class="sendmail">contact@cscmanagement.com</a></p>
   </footer>
 
     <button id="goTopBtn" title="Remonter">

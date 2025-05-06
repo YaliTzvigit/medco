@@ -1,46 +1,82 @@
 <?php
 session_start();
-require_once('../config/db.php'); // Connexion à la BDD via $conn
+require_once('../config/db.php');
 
-if (isset($_POST['login'])) {
-    $email = trim($_POST['email']);
-    $code_pin = trim($_POST['code_pin']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['login_personnel'])) {
+        // Tentative de connexion du personnel
+        $email = $_POST['email'] ?? '';
+        $pin = $_POST['pin_code'] ?? '';
 
-    // Vérifie si l'utilisateur existe
-    $sql = "SELECT * FROM users WHERE email = ? AND code_pin = ?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$email, $code_pin]);
-    $user = $stmt->fetch();
+        if (empty($email) || empty($pin)) {
+            $_SESSION['error'] = "Tous les champs sont requis.";
+            header('Location: ../login.php');
+            exit;
+        }
 
-    if ($user) {
-        // Vérifie que c'est bien un personnel (et non un admin)
-        if (in_array($user['role'], ['medecin', 'infirmier', 'accueil'])) {
-            $_SESSION['user'] = $user;
+        $pdo = new PDO("mysql:host=localhost;dbname=gestion_csc", "root", ""); // Adaptez si nécessaire
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            // Redirection selon le rôle
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? AND pin_code = ?");
+        $stmt->execute([$email, $pin]);
+        $user = $stmt->fetch();
+
+        if ($user) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['role'] = $user['role'];
+
             switch ($user['role']) {
                 case 'medecin':
-                    header("Location: ../views/dashboard_medecin.php");
+                    header('Location: ../views/dashboard_medecin.php');
                     break;
                 case 'infirmier':
-                    header("Location: ../views/dashboard_infirmier.php");
+                    header('Location: ../views/dashboard_infirmier.php');
                     break;
                 case 'accueil':
-                    header("Location: ../views/dashboard_accueil.php");
+                    header('Location: ../views/dashboard_accueil.php');
                     break;
+                default:
+                    $_SESSION['error'] = "Rôle inconnu.";
+                    header('Location: ../login.php');
             }
-            exit();
+            exit;
         } else {
-            $_SESSION['error'] = "Accès réservé au personnel.";
-            header("Location: ../login.php");
-            exit();
+            $_SESSION['error'] = "Email ou code PIN incorrect pour le personnel.";
+            header('Location: ../login.php');
+            exit;
+        }
+    } elseif (isset($_POST['login_patient'])) {
+        $telephone = $_POST['telephone'] ?? '';
+        $pin = $_POST['pin_code'] ?? '';
+
+        if (empty($telephone) || empty($pin)) {
+            $_SESSION['error'] = "Téléphone et code PIN requis.";
+            header('Location: ../login.php');
+            exit;
+        }
+
+        $pdo = new PDO("mysql:host=localhost;dbname=medco", "root", ""); // Assurez-vous que c'est la bonne DB pour les patients
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $stmt = $pdo->prepare("SELECT * FROM patients WHERE telephone = ? AND pin_code = ?");
+        $stmt->execute([$telephone, $pin]);
+        $patient = $stmt->fetch();
+
+        if ($patient) {
+            $_SESSION['patient_id'] = $patient['id'];
+            $_SESSION['role'] = 'patient';
+            header('Location: ../views/dashboard_patient.php');
+            exit;
+        } else {
+            $_SESSION['error'] = "Téléphone ou code PIN incorrect pour le patient.";
+            header('Location: ../login.php');
+            exit;
         }
     } else {
-        $_SESSION['error'] = "Email ou code PIN incorrect.";
-        header("Location: ../login.php");
-        exit();
+        // Aucun formulaire de connexion identifié
+        $_SESSION['error'] = "Erreur de connexion.";
+        header('Location: ../login.php');
+        exit;
     }
-} else {
-    header("Location: ../login.php");
-    exit();
 }
+?>
