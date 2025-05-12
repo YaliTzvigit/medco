@@ -11,70 +11,80 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="login.css" />
-    <style>
-        /* Vos styles CSS ici (login.css ou style inline) */
-    </style>
 </head>
 <body>
 
-<h1 class="logo" onclick="window.location.href='index.php'">
-    MEDCO
-</h1>
+<div class="left-panel text-center">
+    <h1>MEDCO</h1>
+    <p class="welph">Bienvenue à nouveau,</p>
+    <h3 class="leftph">Connectez-vous à votre compte pour continuer.</h3>
+</div>
 
-<div class="login-container">
-    <div class="tab-container">
-        <button class="tab active" onclick="showForm('personnel-login')">Personnel</button>
-        <button class="tab" onclick="showForm('patient-login')">Patient</button>
-    </div>
+<div class="right-panel">
+    <div class="login-form">
+        
+        <?php if (isset($_SESSION['error'])): ?>
+            <div class="alert alert-danger text-center"><?= $_SESSION['error']; unset($_SESSION['error']); ?></div>
+        <?php endif; ?>
 
-    <?php if (isset($_SESSION['error'])): ?>
-        <div class="alert alert-danger text-center"><?= $_SESSION['error']; unset($_SESSION['error']); ?></div>
-    <?php endif; ?>
+        <div class="tab-container d-flex justify-content-center mb-4">
+            <button class="btn btn-outline-primary me-2" id="personnelBtn" onclick="showForm('personnel-login')">Personnel</button>
+            <button class="btn btn-outline-primary" id="patientBtn" onclick="showForm('patient-login')">Patient</button>
+        </div>
 
-    <div id="personnel-login" class="form-wrapper active">
-        <h3 class="form-title">Connexion Personnel</h3>
-        <form action="controllers/loginController.php" method="POST" name="personnelForm">
-            <div class="mb-3">
-                <label for="email" class="form-label">Votre Courriel</label>
-                <input type="email" name="email" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="pin_code_personnel" class="form-label">Code PIN</label>
-                <input type="password" name="pin_code" class="form-control" maxlength="4" required>
-            </div>
-            <button type="submit" class="btn btn-custom w-100" name="login_personnel">Se connecter</button>
-            <a href="#" class="link-back">J’ai oublié mon CODE PIN. <i class="fa-regular fa-circle-question"></i></a>
-        </form>
-    </div>
+        <div id="personnel-login" class="form-wrapper active">
+            <h3 class="form-title">Connexion Personnel</h3>
+            <form action="controllers/loginController.php" method="POST" name="personnelForm">
+                <div class="mb-3">
+                    <label class="form-label">Adresse e-mail</label>
+                    <input type="email" name="email" class="form-control" placeholder="nom@exemple.com" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Code PIN</label>
+                    <input type="password" name="pin_code" class="form-control" maxlength="4" placeholder="****" required>
+                </div>
+                <a href="#" class="forgot-link">Mot de passe oublié ?</a>
+                <button type="submit" class="btn btn-custom w-100 mt-3" name="login_personnel">Connexion</button>
+            </form>
+        </div>
 
-    <div id="patient-login" class="form-wrapper">
-        <h3 class="form-title">Connexion Patient</h3>
-        <form action="controllers/loginController.php" method="POST" name="patientForm">
-            <div class="mb-3">
-                <label for="telephone" class="form-label">Téléphone</label>
-                <input type="text" name="telephone" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="pin_code_patient" class="form-label">Code PIN</label>
-                <input type="password" name="pin_code" class="form-control" maxlength="4" required>
-            </div>
-            <button type="submit" class="btn btn-custom w-100" name="login_patient">Se connecter</button>
-        </form>
-        <a href="#" class="link-back">J’ai oublié mon CODE PIN. <i class="fa-regular fa-circle-question"></i></a>
+        <div id="patient-login" class="form-wrapper" style="display: none;">
+            <h3 class="form-title">Connexion Patient</h3>
+            <form action="controllers/loginController.php" method="POST" name="patientForm">
+                <div class="mb-3">
+                    <label class="form-label">Téléphone</label>
+                    <input type="text" name="telephone" class="form-control" placeholder="Ex: 0700000000" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Code PIN</label>
+                    <input type="password" name="pin_code" class="form-control" maxlength="4" placeholder="****" required>
+                </div>
+                <a href="#" class="forgot-link">Mot de passe oublié ?</a>
+                <button type="submit" class="btn btn-custom w-100 mt-3" name="login_patient">Connexion</button>
+            </form>
+        </div>
+
     </div>
 </div>
 
 <script>
     function showForm(formId) {
-        const forms = document.querySelectorAll('.form-wrapper');
-        const tabs = document.querySelectorAll('.tab');
+        const personnelForm = document.getElementById('personnel-login');
+        const patientForm = document.getElementById('patient-login');
+        const personnelBtn = document.getElementById('personnelBtn');
+        const patientBtn = document.getElementById('patientBtn');
 
-        forms.forEach(form => form.classList.remove('active'));
-        tabs.forEach(tab => tab.classList.remove('active'));
-
-        document.getElementById(formId).classList.add('active');
-        const activeTab = formId === 'personnel-login' ? tabs[0] : tabs[1];
-        activeTab.classList.add('active');
+        if (formId === 'personnel-login') {
+            personnelForm.style.display = 'block';
+            patientForm.style.display = 'none';
+            personnelBtn.classList.add('active');
+            patientBtn.classList.remove('active');
+        } else {
+            personnelForm.style.display = 'none';
+            patientForm.style.display = 'block';
+            personnelBtn.classList.remove('active');
+            patientBtn.classList.add('active');
+        }
     }
 </script>
 

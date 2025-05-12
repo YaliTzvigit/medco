@@ -1,14 +1,35 @@
-
 @font-face {
-    font-family: 'Source Sans Pro';
-    src: url('fonts/source-sans-pro/SourceSansPro-Regular.otf') format('truetype');
+    font-family: 'Sinkin Sans';
+    src: url('fonts/sinkin-sans/SinkinSans-400Regular.otf') format('truetype');
     font-weight: normal;
     font-style: normal;
-  }
-  
+}
+
 body {
-    background: rgb(210, 186, 102);
-    font-family: 'Source Sans Pro', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    margin: 0;
+    font-family: 'Sinkin Sans', sans-serif;
+}
+
+.left-panel {
+    background-color: rgb(67, 44, 2); /* Marron foncé */
+    color: white;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+
+.right-panel {
+    flex: 1;
+    background-color: rgb(210, 186, 102); /* Couleur de fond doré */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px;
 }
 
 .logo {
@@ -21,74 +42,97 @@ body {
     text-decoration: underline;
 }
 
-.form-control {
-    text-transform: uppercase;
-}
-
 .login-container {
-    margin-top: 20px;
+    width: 100%;
     max-width: 400px;
-    margin: auto;
-    margin-top: 50px;
+    margin: 0 auto;
+    background: #fff;
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    background-color: white;
 }
+
 .form-title {
     text-align: center;
     margin-bottom: 20px;
     color: rgb(67, 44, 2);
+    font-size: 24px;
+    font-weight: bold;
 }
+
+.form-control {
+    text-transform: none;
+}
+
 .mb-3 label {
     font-weight: bold;
     color: #343a40;
 }
+
 .btn-custom {
     background-color: rgb(67, 44, 2);
     border-color: rgb(67, 44, 2);
     color: white;
+    font-weight: bold;
 }
 .btn-custom:hover {
     background-color: rgb(196, 156, 10);
     border-color: rgb(196, 156, 10);
 }
+
 .alert {
-    margin-bottom: 15px;
-}
-.link-back {
-    display: block;
+    margin-bottom: 20px;
     text-align: center;
-    margin-top: 15px;
+}
+
+.link-back, .forgot-link {
+    display: block;
+    text-align: right;
+    margin-top: 10px;
     font-size: 0.9em;
     color: #007bff;
     text-decoration: none;
 }
-.link-back:hover {
+.link-back:hover, .forgot-link:hover {
     text-decoration: underline;
 }
+
 .tab-container {
     display: flex;
+    justify-content: center;
     margin-bottom: 20px;
     border-bottom: 1px solid #dee2e6;
 }
-.tab {
+
+.tab, .btn-outline-primary {
     flex: 1;
     padding: 10px 15px;
     text-align: center;
     cursor: pointer;
-    color: #495057;
-    border: none;
     background-color: transparent;
+    border: none;
+    color: #495057;
     font-weight: bold;
 }
-.tab.active {
+
+.tab.active, .btn-outline-primary.active {
     color: rgb(67, 44, 2);
     border-bottom: 2px solid rgb(67, 44, 2);
 }
+
 .form-wrapper {
     display: none;
 }
 .form-wrapper.active {
     display: block;
+}
+
+/* Pour que le formulaire occupe bien son espace */
+.login-form {
+    width: 100%;
+}
+
+.forgot-link {
+    color: rgb(67, 44, 2);
+    text-decoration: underline;
 }

@@ -1,14 +1,15 @@
 
 
 @font-face {
-    font-family: 'Source Sans Pro';
-    src: url('fonts/source-sans-pro/SourceSansPro-Regular.otf') format('truetype');
+    font-family: 'Aileron';
+    src: url('fonts/aileron/Aileron-Regular.otf') format('truetype');
     font-weight: normal;
     font-style: normal;
-  }
-  
+}
+
 body {
-    font-family: 'Source Sans Pro', sans-serif;
+    margin: 0;
+    font-family: 'Aileron', sans-serif;
 }
   
 .desc {
